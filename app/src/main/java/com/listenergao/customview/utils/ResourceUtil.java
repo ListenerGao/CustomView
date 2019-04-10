@@ -16,8 +16,13 @@ public class ResourceUtil {
     }
 
     public static int px2dp(int px) {
-        float density = Resources.getSystem().getDisplayMetrics().density;
-        return (int) (px / density + 0.5f);
+//        float density = Resources.getSystem().getDisplayMetrics().density;
+//        return (int) (px / density + 0.5f);
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px, Resources.getSystem().getDisplayMetrics());
+    }
+
+    public static int sp2px(int sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics());
     }
 
     public static Bitmap getResourceBitmap(Context context, int imgResId) {
