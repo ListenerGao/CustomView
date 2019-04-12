@@ -62,7 +62,7 @@ public class AvatarView extends View {
     private void init() {
         //ANTI_ALIAS_FLAG 抗锯齿模式, 也可以使用paint.setAntiAlias()设置, 默认是关闭的
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        avatar = ResourceUtil.getResourceBitmap(mContext, R.drawable.sample, WIDTH);
+        avatar = ResourceUtil.getResourceBitmap(getResources(), R.drawable.sample, WIDTH);
         rectF = new RectF();
         border = new RectF();
         //"Xfermode"其实就是"Transfer mode", 设置绘制内容和View中已有内容的混合计算方式
