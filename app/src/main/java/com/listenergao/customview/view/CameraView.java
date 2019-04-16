@@ -44,7 +44,9 @@ public class CameraView extends View {
         bitmap = ResourceUtil.getResourceBitmap(getResources(), R.drawable.avatar_hacher, IMAGE_WIDTH);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         //以轴心作为旋转点（此处轴心是坐标原点），轴心不能自己指定，需将图片移动到原点处，旋转后再移动回来
-        camera.rotateX(30);
+        camera.rotateX(45);
+        // z的默认值是 -8英寸  一英寸默认是72像素
+        camera.setLocation(0, 0, -6 * getResources().getDisplayMetrics().density);
 
     }
 
@@ -52,10 +54,31 @@ public class CameraView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //此处步骤是反着来的
+
+        canvas.save();
         canvas.translate(IMAGE_PADDING + IMAGE_WIDTH / 2, IMAGE_PADDING + IMAGE_WIDTH / 2);
-        camera.applyToCanvas(canvas);
+        canvas.rotate(-30);
+        canvas.clipRect(-IMAGE_WIDTH, -IMAGE_WIDTH, IMAGE_WIDTH, 0);
+        canvas.rotate(30);
         canvas.translate(-(IMAGE_PADDING + IMAGE_WIDTH / 2), -(IMAGE_PADDING + IMAGE_WIDTH / 2));
         canvas.drawBitmap(bitmap, IMAGE_PADDING, IMAGE_PADDING, paint);
+        canvas.restore();
+
+
+        canvas.save();
+        //此处步骤是反着来的
+        //第四步
+        canvas.translate(IMAGE_PADDING + IMAGE_WIDTH / 2, IMAGE_PADDING + IMAGE_WIDTH / 2);
+        canvas.rotate(-30);
+        //第三步
+        camera.applyToCanvas(canvas);
+        //第二步
+        canvas.clipRect(-IMAGE_WIDTH, 0, IMAGE_WIDTH, IMAGE_WIDTH);
+        canvas.rotate(30);
+        //第一步
+        canvas.translate(-(IMAGE_PADDING + IMAGE_WIDTH / 2), -(IMAGE_PADDING + IMAGE_WIDTH / 2));
+        canvas.drawBitmap(bitmap, IMAGE_PADDING, IMAGE_PADDING, paint);
+
+        canvas.restore();
     }
 }
