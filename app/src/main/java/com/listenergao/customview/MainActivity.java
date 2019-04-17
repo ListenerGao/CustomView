@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author listenergao
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivitty {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
