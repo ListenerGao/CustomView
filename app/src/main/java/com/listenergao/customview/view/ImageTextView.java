@@ -27,7 +27,7 @@ public class ImageTextView extends View {
     private static final int IMAGE_PADDING = ResourceUtil.dp2px(80);
 
     private TextPaint textPaint;
-    private Bitmap avatarBitmap = ResourceUtil.getResourceBitmap(getResources(), R.drawable.avatar, IMAGE_WIDTH);
+    private Bitmap avatarBitmap = ResourceUtil.getResourceBitmap(getResources(), R.drawable.sample, IMAGE_WIDTH);
     private float[] measuredWidth = new float[1];
 
     private Paint paint;
@@ -78,17 +78,13 @@ public class ImageTextView extends View {
         int textLength = TEXT.length();
         float yOffset = paint.getFontSpacing();
         float usableWidth;
-        Log.d("gys", "width = " + IMAGE_WIDTH);
-        Log.d("gys", "padding = " + IMAGE_PADDING);
         for (int start = 0, breakTextCount; start < textLength; start += breakTextCount, yOffset += paint.getFontSpacing()) {
             float textTop = yOffset + fontMetrics.ascent;
             float textBottom = yOffset + fontMetrics.descent;
-            Log.d("gys", "textTop = " + textTop);
-            Log.d("gys", "textBottom = " + textBottom);
+
             if ((textTop > IMAGE_PADDING && textTop < IMAGE_WIDTH + IMAGE_PADDING) ||
                     (textBottom > IMAGE_PADDING && textBottom < IMAGE_WIDTH + IMAGE_PADDING)) {
                 usableWidth = getWidth() - IMAGE_WIDTH;
-                Log.d("gys", ".............");
             } else {
                 usableWidth = getWidth();
             }
