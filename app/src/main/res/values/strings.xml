@@ -12,4 +12,20 @@
     <string name="title_draw_path">drawPath()</string>
     <string name="title_draw_histogram">直方图</string>
     <string name="title_draw_pie_chart">饼图</string>
+
+
+    <string name="custom_view">自定义 View 系列</string>
+
+    <string name="custom_view_1">自定义 View&#8211;绘制</string>
+    <string name="custom_view_1_1">自定义 View 1&#8211;1绘制基础</string>
+    <string name="custom_view_1_2">自定义 View 1&#8211;2 Paint 详解</string>
+    <string name="custom_view_1_3">自定义 View 1&#8211;3 drawText() 文字的绘制</string>
+    <string name="custom_view_1_4">自定义 View 1&#8211;4 Canvas 对绘制的辅助 clipXXX() 和 Matrix</string>
+    <string name="custom_view_1_5">自定义 View 1&#8211;5 绘制顺序</string>
+    <string name="custom_view_1_6">自定义 View 1&#8211;6 属性动画 Property Animation (一)</string>
+    <string name="custom_view_1_7">自定义 View 1&#8211;7 属性动画 Property Animation (一)</string>
+    <string name="custom_view_1_8">自定义 View 1&#8211;8 硬件加速</string>
+
+    <string name="custom_view_2">自定义 View&#8211;布局</string>
+    <string name="custom_view_3">自定义 View&#8211;触摸反馈</string>
 </resources>
