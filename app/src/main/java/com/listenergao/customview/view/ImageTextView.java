@@ -4,14 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.listenergao.customview.R;
 import com.listenergao.customview.utils.ResourceUtil;
+
+import androidx.annotation.Nullable;
 
 /**
  * create on 2019/4/14

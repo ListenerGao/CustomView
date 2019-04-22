@@ -2,16 +2,16 @@ package com.listenergao.customview.propertyanimator;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.listenergao.customview.BaseActivitty;
 import com.listenergao.customview.R;
 import com.listenergao.customview.view.SportsWithAnimatorView;
+
+import androidx.annotation.Nullable;
 
 /**
  * @author ListenerGao

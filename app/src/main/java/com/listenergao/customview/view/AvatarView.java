@@ -9,12 +9,13 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.listenergao.customview.R;
 import com.listenergao.customview.utils.ResourceUtil;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 自定义圆形带border头像

@@ -6,10 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.TypedValue;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 /**
  * 资源工具类

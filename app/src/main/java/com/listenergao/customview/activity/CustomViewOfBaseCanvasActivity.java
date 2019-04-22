@@ -1,12 +1,8 @@
 package com.listenergao.customview.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.listenergao.customview.BaseActivitty;
 import com.listenergao.customview.PageFragment;
 import com.listenergao.customview.R;
@@ -14,6 +10,11 @@ import com.listenergao.customview.data.DataResourceUtil;
 import com.listenergao.customview.mode.PageModel;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @author ListenerGao

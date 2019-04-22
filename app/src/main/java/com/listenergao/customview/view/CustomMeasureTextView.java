@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
 import com.listenergao.customview.utils.ResourceUtil;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 自定义View之测量文字尺寸类

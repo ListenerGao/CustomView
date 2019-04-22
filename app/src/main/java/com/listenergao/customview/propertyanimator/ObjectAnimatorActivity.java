@@ -2,13 +2,13 @@ package com.listenergao.customview.propertyanimator;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.listenergao.customview.BaseActivitty;
 import com.listenergao.customview.R;
 import com.listenergao.customview.view.CameraView;
+
+import androidx.annotation.Nullable;
 
 /**
  * create on 2019/4/20

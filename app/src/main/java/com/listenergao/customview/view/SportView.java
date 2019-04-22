@@ -6,14 +6,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
 import com.listenergao.customview.R;
 import com.listenergao.customview.utils.ResourceUtil;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
 /**
  * create on 2019/4/13

@@ -5,13 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.listenergao.customview.utils.ResourceUtil;
 
 import java.util.Locale;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 自定义view之drawText()文字的绘制

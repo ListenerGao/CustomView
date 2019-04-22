@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.listenergao.customview.R;
 import com.listenergao.customview.utils.ResourceUtil;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * 自定义简单的SportsView
