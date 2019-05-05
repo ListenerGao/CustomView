@@ -23,7 +23,7 @@ import androidx.core.view.GestureDetectorCompat;
  *
  * @author ListenerGao
  */
-public class ScalableImageView extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener, Runnable {
+public class ScalableImageView extends View {
 
     private static final int IMAGE_WIDTH = ResourceUtil.dp2px(300);
     /**
@@ -69,6 +69,9 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
      */
     private OverScroller scroller;
 
+    private ScalableGestureDetector scalableGestureDetectorListener = new ScalableGestureDetector();
+    private FlingRunnable flingRunnable = new FlingRunnable();
+
     public ScalableImageView(Context context) {
         this(context, null);
     }
@@ -89,7 +92,7 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         bitmap = ResourceUtil.getResourceBitmap(getResources(), R.drawable.avatar, IMAGE_WIDTH);
         //可以使用此方法来简写，可以省略很多未用到的方法
 //        detector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener(){});
-        detector = new GestureDetectorCompat(context, this);
+        detector = new GestureDetectorCompat(context, scalableGestureDetectorListener);
         //添加双击事件的监听器（可以省略，GestureDetectorCompat类中会判断， 如果实现了OnDoubleTapListener，会自动调用一下方法）
 //        detector.setOnDoubleTapListener(this);
 
@@ -152,145 +155,6 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
     }
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        //true 表示接收后续事件的处理
-        return true;
-    }
-
-    /**
-     * 预按下
-     *
-     * @param e
-     */
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    /**
-     * 手指按下，并抬起，会触发此方法
-     *
-     * @param e
-     * @return
-     */
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    /**
-     * 移动时会触发此方法
-     *
-     * @param downEvent
-     * @param currentEvent
-     * @param distanceX
-     * @param distanceY
-     * @return
-     */
-    @Override
-    public boolean onScroll(MotionEvent downEvent, MotionEvent currentEvent, float distanceX, float distanceY) {
-        if (isBigScale) {
-            //放大模式下,才能滑动
-            offsetX -= distanceX;
-            offsetY -= distanceY;
-            fixOffset();
-            invalidate();
-        }
-        return false;
-    }
-
-    /**
-     * 长按会触发此方法
-     * 使用detector.setIsLongpressEnabled(false);可以关闭长按
-     *
-     * @param e
-     */
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    /**
-     * 手指在快速滑动时， 突然抬起会触发此方法
-     * (惯性滑动)
-     *
-     * @param e1
-     * @param e2
-     * @param velocityX
-     * @param velocityY
-     * @return
-     */
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (isBigScale) {
-            //最后两个参数ovalX和ovalY表示,试下看效果
-            scroller.fling((int) offsetX, (int) offsetY,
-                    (int) velocityX, (int) velocityY,
-                    -(int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
-                    (int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
-                    -(int) ((bitmap.getHeight() * bigScale - getHeight()) / 2),
-                    (int) ((bitmap.getHeight() * bigScale - getHeight()) / 2));
-            //postOnAnimation 在下一帧去主线程执行
-            //post 立即去主线程执行
-            postOnAnimation(this);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        return false;
-    }
-
-    /**
-     * 双击时会触发此方法
-     *
-     * @param e
-     * @return
-     */
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        isBigScale = !isBigScale;
-        if (isBigScale) {
-            //放大时,添加额外偏移, 使其以双击点作为放大点
-            offsetX = (e.getX() - getWidth() / 2f) * (1 - bigScale / smallScale);
-            offsetY = (e.getY() - getHeight() / 2f) * (1 - bigScale / smallScale);
-            fixOffset();
-            //放大动画
-            getScaleAnimator().start();
-        } else {
-            getScaleAnimator().reverse();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        return false;
-    }
-
-    /**
-     * 获取惯性滑动后X,Y坐标值
-     */
-    private boolean refresh() {
-        //通知OverScroller.computeScrollOffset()计算X,Y坐标, 否则下面的getCurrX()和getCurrY()获取的值一直为0.
-        //返回值表示动画是否在执行
-        if (scroller.computeScrollOffset()) {
-            offsetX = scroller.getCurrX();
-            offsetY = scroller.getCurrY();
-            invalidate();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void run() {
-        if (refresh()) {
-            postOnAnimation(this);
-        }
-    }
 
     /**
      * 修正坐标点
@@ -302,5 +166,142 @@ public class ScalableImageView extends View implements GestureDetector.OnGesture
         //修正滑动,滑动到图片上下边缘时,矫正Y点坐标
         offsetY = Math.min(offsetY, (bitmap.getHeight() * bigScale - getHeight()) / 2);
         offsetY = Math.max(offsetY, -(bitmap.getHeight() * bigScale - getHeight()) / 2);
+    }
+
+    private class ScalableGestureDetector implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            //true 表示接收后续事件的处理
+            return true;
+        }
+
+        /**
+         * 预按下
+         *
+         * @param e
+         */
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        /**
+         * 手指按下，并抬起，会触发此方法
+         *
+         * @param e
+         * @return
+         */
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        /**
+         * 移动时会触发此方法
+         *
+         * @param downEvent
+         * @param currentEvent
+         * @param distanceX
+         * @param distanceY
+         * @return
+         */
+        @Override
+        public boolean onScroll(MotionEvent downEvent, MotionEvent currentEvent, float distanceX, float distanceY) {
+            if (isBigScale) {
+                //放大模式下,才能滑动
+                offsetX -= distanceX;
+                offsetY -= distanceY;
+                fixOffset();
+                invalidate();
+            }
+            return false;
+        }
+
+        /**
+         * 长按会触发此方法
+         * 使用detector.setIsLongpressEnabled(false);可以关闭长按
+         *
+         * @param e
+         */
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        /**
+         * 手指在快速滑动时， 突然抬起会触发此方法
+         * (惯性滑动)
+         *
+         * @param e1
+         * @param e2
+         * @param velocityX
+         * @param velocityY
+         * @return
+         */
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (isBigScale) {
+                //最后两个参数ovalX和ovalY表示,试下看效果
+                scroller.fling((int) offsetX, (int) offsetY,
+                        (int) velocityX, (int) velocityY,
+                        -(int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
+                        (int) ((bitmap.getWidth() * bigScale - getWidth()) / 2),
+                        -(int) ((bitmap.getHeight() * bigScale - getHeight()) / 2),
+                        (int) ((bitmap.getHeight() * bigScale - getHeight()) / 2));
+                //postOnAnimation 在下一帧去主线程执行
+                //post 立即去主线程执行
+                postOnAnimation(flingRunnable);
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            return false;
+        }
+
+        /**
+         * 双击时会触发此方法
+         *
+         * @param e
+         * @return
+         */
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            isBigScale = !isBigScale;
+            if (isBigScale) {
+                //放大时,添加额外偏移, 使其以双击点作为放大点
+                offsetX = (e.getX() - getWidth() / 2f) * (1 - bigScale / smallScale);
+                offsetY = (e.getY() - getHeight() / 2f) * (1 - bigScale / smallScale);
+                fixOffset();
+                //放大动画
+                getScaleAnimator().start();
+            } else {
+                getScaleAnimator().reverse();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent e) {
+            return false;
+        }
+
+
+    }
+
+    private class FlingRunnable implements Runnable {
+        @Override
+        public void run() {
+            //通知OverScroller.computeScrollOffset()计算X,Y坐标, 否则下面的getCurrX()和getCurrY()获取的值一直为0.
+            //返回值表示动画是否在执行
+            if (scroller.computeScrollOffset()) {
+                //获取惯性滑动后X,Y坐标值
+                offsetX = scroller.getCurrX();
+                offsetY = scroller.getCurrY();
+                invalidate();
+                postOnAnimation(this);
+            }
+        }
     }
 }
