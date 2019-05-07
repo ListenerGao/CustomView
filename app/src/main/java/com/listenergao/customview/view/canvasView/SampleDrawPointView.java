@@ -1,4 +1,4 @@
-package com.listenergao.customview.sampleview;
+package com.listenergao.customview.view.canvasView;
 
 import android.content.Context;
 import android.graphics.Canvas;
