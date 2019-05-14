@@ -9,17 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MultiTouchViewActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!--添加App Shortcuts支持-->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity android:name=".activity.CustomViewOfBaseCanvasActivity" />
         <activity android:name=".activity.CustomViewActivity" />
         <activity android:name=".propertyanimator.ObjectAnimatorActivity" />
+        <activity android:name=".activity.ScalableImageActivity" />
     </application>
 
 </manifest>

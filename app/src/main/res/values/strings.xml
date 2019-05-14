@@ -28,4 +28,11 @@
 
     <string name="custom_view_2">自定义 View&#8211;布局</string>
     <string name="custom_view_3">自定义 View&#8211;触摸反馈</string>
+
+    <string name="shortcut_canvas_long">Canvas基础绘制</string>
+    <string name="shortcut_canvas_short">Canvas绘制</string>
+
+    <string name="shortcut_scalable_long">双击实现缩放图片功能</string>
+    <string name="shortcut_scalable_short">图片缩放</string>
+    <string name="shortcut_scalable_msg">已禁用快捷方式功能</string>
 </resources>

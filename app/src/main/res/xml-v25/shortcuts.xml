@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+    API 25之后支持
+    可以添加多个shortcut标签, 一个标签标识一个快捷方式
+    icon: 快捷方式图标
+    shortcutId: 快捷方式id, 需要保证是唯一的, 不能设置为资源字符串
+    shortcutLongLabel: 快捷方式长名称 属性值必须为资源字符串
+    shortcutShortLabel: 快捷方式短名称 属性值必须为资源字符串
+    enabled: true表示可以启用快捷方式, false表示禁止启用快捷方式, 此时shortcutDisabledMessage属性有效
+    shortcutDisabledMessage: 当用户尝试启动已禁用的快捷方式时提示的信息，用于向用户解释为什么禁用该快捷方式.仅当enabled="false"时有效
+
+    其中shortcutId和shortcutShortLabel是必要配置, 否者快捷方式不会显示
+    -->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/avatar"
+        android:shortcutId="BASE_CANVAS"
+        android:shortcutLongLabel="@string/shortcut_canvas_long"
+        android:shortcutShortLabel="@string/shortcut_canvas_short">
+        <!--
+        一个快捷方式可以配置多个intent, 点击快捷方式后会显示最后一个Intent指定的Activity,
+        并将前面几个Intent指定的Activity加入到返回栈中.
+        如以下配置:点击快捷方式后, 会显示CustomViewOfBaseCanvasActivity, 点击返回键,
+        依次返回CustomViewActivity, MainActivity
+        -->
+        <intent
+            android:action="com.listenergao.customview.MAIN"
+            android:targetClass="com.listenergao.customview.MainActivity"
+            android:targetPackage="com.listenergao.customview" />
+
+        <intent
+            android:action="com.listenergao.customview.MAIN"
+            android:targetClass="com.listenergao.customview.activity.CustomViewActivity"
+            android:targetPackage="com.listenergao.customview" />
+
+        <intent
+            android:action="com.listenergao.customview.BASE_CANVAS"
+            android:targetClass="com.listenergao.customview.activity.CustomViewOfBaseCanvasActivity"
+            android:targetPackage="com.listenergao.customview" />
+
+
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/avatar_hacher"
+        android:shortcutDisabledMessage="@string/shortcut_scalable_msg"
+        android:shortcutId="SCALABLE_IMAGE"
+        android:shortcutLongLabel="@string/shortcut_scalable_long"
+        android:shortcutShortLabel="@string/shortcut_scalable_short">
+        <intent
+            android:action="com.listenergao.customview.SCALABLE_IMAGE"
+            android:targetClass="com.listenergao.customview.activity.ScalableImageActivity"
+            android:targetPackage="com.listenergao.customview" />
+    </shortcut>
+</shortcuts>
