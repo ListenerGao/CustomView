@@ -9,12 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--添加一个16:9的banner图-->
+        <TextView
+            android:id="@+id/tv_banner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Banner"
+            app:layout_constraintDimensionRatio="16:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_banner" />
 
         <Button
             android:id="@+id/btn2"
@@ -32,6 +45,13 @@
             app:layout_constraintLeft_toRightOf="@id/btn2"
             app:layout_constraintTop_toTopOf="@id/btn2" />
 
+        <!--
+        利用Guideline辅助线实现两个控件的水平居中
+        该控件不会显示到页面上
+        orientation:取值为”vertical”和”horizontal”
+        还有layout_constraintGuide_begin 和  layout_constraintGuide_end
+        layout_constraintGuide_percent距离父布局的百分比
+        -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -39,7 +59,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <!--利用Guideline辅助线实现两个控件的水平居中-->
         <Button
             android:id="@+id/btn4"
             android:layout_width="wrap_content"
@@ -124,30 +143,45 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn8" />
 
+        <!--
+        三个Tab两两设置了依赖, 横向的相当于组成了一个链(Chains).
+        在这个链的最左侧的元素成为了链头, 可以在其身上通过layout_constraintHorizontal_chainStyle属性,
+        来决定链的展示效果. 取值为:spread(默认),spread_inside,packed(注意:需要配合layout_width)
+        -->
         <TextView
             android:id="@+id/tv4"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Tab1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/tv5"
             app:layout_constraintTop_toBottomOf="@id/btn8" />
 
         <TextView
             android:id="@+id/tv5"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Tab2"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@id/tv4"
             app:layout_constraintRight_toRightOf="@id/tv6"
             app:layout_constraintTop_toTopOf="@id/tv4" />
 
         <TextView
             android:id="@+id/tv6"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="Tab3"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@id/tv5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv4" />
@@ -167,18 +201,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="文字居中(以图片的高度)"
+            android:text="文字上下居中(以图片的高度)"
             app:layout_constraintBottom_toBottomOf="@id/image"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/image" />
 
-        <View
+        <TextView
+            android:id="@+id/tv_dividing_line"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="我是分割线"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_dividing_line" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_image"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:src="@drawable/avatar_hacher"
+            app:civ_border_color="@color/colorWhite"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/image2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
