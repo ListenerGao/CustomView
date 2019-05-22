@@ -242,6 +242,71 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image2" />
 
+
+        <Button
+            android:id="@+id/btn10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circle_image" />
+        <!--
+        通过layout_constraintCircle(圆心), layout_constraintCircleAngle(角度),
+        layout_constraintCircleRadius(半径)来设置圆形定位
+        -->
+        <Button
+            android:id="@+id/btn11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintCircle="@id/btn10"
+            app:layout_constraintCircleAngle="135"
+            app:layout_constraintCircleRadius="80dp" />
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="长文本测试长文本测试"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn11" />
+
+        <TextView
+            android:id="@+id/tv8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="短文本测试"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv7" />
+
+        <!--
+        Barrier是一个虚拟视图, 类似于Guideline, 用来约束对象.
+        Barrier和Guideline的区别在于它是由多个view的大小决定的.
+
+        constraint_referenced_ids:指定引用view的id
+        barrierDirection:Barrier的方向
+        -->
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tv7,tv8" />
+
+        <TextView
+            android:id="@+id/tv9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="超长文本测试超长文本测试超长文本测试超长文本测试超长文本测试超长文本测试超长文本测试超长文本测试"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/barrier"
+            app:layout_constraintTop_toTopOf="@id/tv7" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
