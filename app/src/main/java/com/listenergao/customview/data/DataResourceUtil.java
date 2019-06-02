@@ -7,9 +7,11 @@ import com.listenergao.customview.activity.CustomViewActivity;
 import com.listenergao.customview.activity.CustomViewOfBaseCanvasActivity;
 import com.listenergao.customview.mode.FunctionMode;
 import com.listenergao.customview.mode.PageModel;
+import com.listenergao.customview.mode.SampleMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 数据工具类
@@ -54,5 +56,16 @@ public class DataResourceUtil {
         functionModes.add(new FunctionMode(resources.getString(R.string.custom_view_3), CustomViewOfBaseCanvasActivity.class));
 
         return functionModes;
+    }
+
+    public static List<SampleMode> getSampleData() {
+        int[] images = {R.drawable.avatar, R.drawable.avatar_hacher, R.drawable.sample};
+        List<SampleMode> sampleModes = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            sampleModes.add(new SampleMode(images[random.nextInt(3)], "ListenerGao"));
+        }
+
+        return sampleModes;
     }
 }
