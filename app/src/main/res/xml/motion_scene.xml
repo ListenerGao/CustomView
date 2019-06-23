@@ -14,8 +14,8 @@
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,11 +24,18 @@
         </Constraint>
     </ConstraintSet>
 
+    <!--设置过渡动画-->
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@id/start"
         app:duration="1000">
 
+        <!--
+        处理过渡动画
+        touchAnchorId 追踪的对象
+        dragDirection 正在追踪的运动方向
+        touchAnchorSide 追踪手指运动的对象边界
+        -->
         <OnSwipe
             app:dragDirection="dragUp"
             app:touchAnchorId="@+id/recycler_view"
